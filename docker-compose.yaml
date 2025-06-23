@@ -1,4 +1,5 @@
-# version: '3.8'
+version: '3.8'
+
 services:
   mysql-db:
     image: mysql:8.0
@@ -7,25 +8,23 @@ services:
       MYSQL_DATABASE: orderdb
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3307:3306" 
+      - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
+
   order-service:
-    build: 
-      context:  ./order-service
-    # image: order-service:latest
+    build:
+      context: ./order-service
     container_name: order-service
     depends_on:
-      - mysql-db:
-          condition: service_healthy
+      - mysql-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/orderdb
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
     ports:
-      -  "8082:8082"
-    # restart: on-failure
-  
+      - "8082:8082"
+    restart: on-failure
