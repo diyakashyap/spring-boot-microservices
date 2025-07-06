@@ -19,7 +19,7 @@ services:
     networks:
       - my-app-network
   discovery-server:
-    image: microservicemicroservices-tutorial/discovery-server
+    image: microservicemicroservices-tutorial/discovery-server:1.0-SNAPSHOT
     container_name: discovery-server
     ports:
       - "8761:8761"
