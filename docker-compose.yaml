@@ -23,14 +23,14 @@ services:
   #Order service db    
   mysql-db-order:
     image: mysql:8.0
-    container_name: 'order-mysql-db'
+    container_name: 'mysql-db-order'
     environment:
       MYSQL_ROOT_PASSWORD: 'orderpass'
       MYSQL_DATABASE: 'orderdb'
     ports:
       - "3307:3306"
     volumes:
-      - "order_mysql_data:/var/lib/mysql"
+      - "mysql-db-order:/var/lib/mysql"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
