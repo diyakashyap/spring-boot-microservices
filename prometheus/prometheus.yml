@@ -3,27 +3,29 @@ global:
   evaluation_interval: 10s
 
 scrape_configs:
+  # Scrape Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Scrape the Eureka Discovery Server (it exposes its own metrics)
+  - job_name: 'eureka_discovery_server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['discovery-server:8761'] # Name of the service in docker-compose.yaml
+
+  # Scrape the Product Service
   - job_name: 'product_service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['product-service:8080']
+      - targets: ['product-service:8080'] # Name and port of the service in docker-compose.yaml
         labels:
           application: 'Product Service Application'
+
+  # Scrape the Order Service
   - job_name: 'order_service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['order-service:8080']
+      - targets: ['order-service:8081'] # <<< CORRECTED PORT (as per your docker-compose)
         labels:
           application: 'Order Service Application'
-  - job_name: 'inventory_service'
-    metrics_path: '/actuator/prometheus'
-    static_configs:
-      - targets: ['inventory-service:8080']
-        labels:
-          application: 'Inventory Service Application'
-  - job_name: 'notification_service'
-    metrics_path: '/actuator/prometheus'
-    static_configs:
-      - targets: ['notification-service:8080']
-        labels:
-          application: 'Notification Service Application'
