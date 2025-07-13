@@ -39,7 +39,7 @@ services:
       start_period: 30s
     networks:
       - my-app-network
-
+ #descovery service container
   discovery-server:
     image: microservices-tutorial/discovery-server:latest
     container_name: discovery-server
@@ -47,6 +47,7 @@ services:
       - "8761:8761"
     networks:
       - my-app-network
+  #product service container
   product-service:
     build: ./product-service
     container_name: "product-service"
@@ -66,7 +67,7 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      order-mysql-db:
+      mysql-db-order:
         condition: service_healthy
       discovery-server:
         condition: service_started
