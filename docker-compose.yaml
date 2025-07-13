@@ -76,6 +76,7 @@ services:
 
 volumes:
   mysql_data:
+  mysql-db-order:
 networks:
   my-app-network:
     driver: bridge
