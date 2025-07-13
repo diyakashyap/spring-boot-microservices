@@ -81,7 +81,7 @@ services:
     ports:
       - "9090:9090" # Prometheus UI
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml # Mount the config file
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # Mount the config file
       - prometheus_data:/prometheus # Persistent data for Prometheus
     command: --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver --web.enable-lifecycle
     depends_on:
