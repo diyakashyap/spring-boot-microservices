@@ -24,7 +24,7 @@ services:
   mysql-db-order:
     image: mysql:8.0
     container_name: 'order-mysql-db'
-    environement:
+    environment:
       MYSQL_ROOT_PASSWORD: 'orderpass'
       MYSQL_DATABASE: 'orderdb'
     ports:
